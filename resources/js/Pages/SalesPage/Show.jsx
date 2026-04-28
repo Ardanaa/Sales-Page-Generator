@@ -228,7 +228,24 @@ export default function Show({ salesPage, flash, auth }) {
                                 {/* Live HTML Iframe */}
                                 <iframe 
                                     ref={iframeRef}
-                                    srcDoc={salesPage.html_content}
+                                    srcDoc={`
+                                        ${salesPage.html_content}
+                                        <script>
+                                            // Prevent links from navigating the iframe away
+                                            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                                                anchor.addEventListener('click', function (e) {
+                                                    e.preventDefault();
+                                                    const targetId = this.getAttribute('href');
+                                                    const targetElement = document.querySelector(targetId);
+                                                    if (targetElement) {
+                                                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                                                        // Update URL hash without reload to maintain current state
+                                                        window.history.replaceState(null, null, targetId);
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    `}
                                     title="Sales Page Preview"
                                     className={`w-full flex-1 mt-12 bg-white transition-opacity duration-300 ${generatingSection ? 'opacity-30 blur-sm' : 'opacity-100'}`}
                                     sandbox="allow-scripts allow-same-origin"

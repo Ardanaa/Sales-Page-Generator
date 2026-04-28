@@ -5,7 +5,7 @@ export default function Welcome({ auth }) {
         <>
             <Head title="CopyGenius - AI Sales Pages" />
             <div className="min-h-screen bg-[#0B0F19] text-gray-100 overflow-hidden relative font-sans">
-                
+
                 {/* Background effects */}
                 <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary-600/20 rounded-full blur-[120px] pointer-events-none"></div>
                 <div className="absolute top-[30%] right-[-10%] w-[40%] h-[40%] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none"></div>
@@ -50,20 +50,20 @@ export default function Welcome({ auth }) {
                     <main className="flex flex-col items-center justify-center text-center pt-32 pb-24">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
                             <span className="flex h-2 w-2 rounded-full bg-primary-500"></span>
-                            <span className="text-sm font-medium text-gray-300">Gemini 3.1 Pro Powered</span>
+                            <span className="text-sm font-medium text-gray-300">Gemini 3 Flash Powered</span>
                         </div>
-                        
+
                         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
-                            Generate High-Converting <br className="hidden md:block"/>
+                            Generate High-Converting <br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-purple-500">
                                 Sales Pages in Seconds.
                             </span>
                         </h1>
-                        
+
                         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12">
                             Stop staring at a blank screen. Input your product details and let our AI generate perfectly structured, beautifully styled sales copy ready to convert.
                         </p>
-                        
+
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link
                                 href={auth.user ? route('dashboard') : route('register')}
@@ -79,7 +79,7 @@ export default function Welcome({ auth }) {
                             </a>
                         </div>
                     </main>
-                    
+
                     {/* Mockup / Dashboard Preview */}
                     <div className="mt-12 relative max-w-5xl mx-auto rounded-xl border border-white/10 bg-dark-surface/50 p-2 backdrop-blur-xl shadow-2xl overflow-hidden mb-32">
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] to-transparent z-10 h-full w-full pointer-events-none"></div>

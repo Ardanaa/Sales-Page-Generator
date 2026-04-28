@@ -39,17 +39,18 @@ class AIGeneratorService
         $prompt .= "1. Return a FULL, valid HTML5 document starting with <!DOCTYPE html>.\n";
         $prompt .= "2. Include Tailwind CSS via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>\n";
         $prompt .= "3. Add <style>html { scroll-behavior: smooth; }</style> in the <head> for native smooth scrolling.\n";
-        $prompt .= "4. Do NOT use any external images. Use inline SVG icons, emoji, or Tailwind-styled div placeholders.\n";
+        $prompt .= "4. IMAGES: Use high-quality professional photography. Use this URL format: <img src=\"https://loremflickr.com/1200/800/{keyword}\" alt=\"{description}\">. Replace {keyword} with a specific, relevant topic (e.g., 'startup,office', 'music,app', 'technology'). For avatars, use <img src=\"https://api.dicebear.com/7.x/avataaars/svg?seed={name}\" alt=\"avatar\">. Use object-cover and rounded corners.\n";
         $prompt .= "5. Include a <script> at the bottom for the mobile hamburger menu toggle.\n";
 
         $prompt .= "\n=== PAGE STRUCTURE (all required) ===\n";
         $prompt .= "1. NAVBAR: sticky top-0 z-50 with backdrop-blur. Nav links use anchor hrefs (#features, #pricing, etc). Must include a hamburger button (hidden on desktop, visible on mobile) that toggles a mobile menu div. The mobile menu must start hidden.\n";
-        $prompt .= "2. HERO: Large compelling headline (max 10 words), a subheadline (1-2 sentences), and a prominent CTA button. Use gradient text or accent colors on key words.\n";
+        $prompt .= "2. HERO: Large compelling headline (max 10 words), a subheadline (1-2 sentences), and a prominent CTA button. **Include a high-quality product-related image or a mockup-visual using the loremflickr format mentioned above.**\n";
         $prompt .= "3. SOCIAL PROOF BAR: A row of logos or trust badges (e.g. '500+ companies trust us', '4.9/5 rating'). Use simple styled divs as logo placeholders.\n";
         $prompt .= "4. FEATURES/BENEFITS: Use a grid (2 or 3 columns on desktop, 1 on mobile). Each card should have an icon (inline SVG), a bold title, and a short description. Use hover effects.\n";
-        $prompt .= "5. TESTIMONIALS: 2-3 testimonial cards with fake but realistic quotes, names, and roles. Use rounded avatar placeholders.\n";
-        $prompt .= "6. PRICING: At least one pricing card with a clear price, feature list with checkmarks, and a CTA button. Highlight the recommended plan if multiple.\n";
-        $prompt .= "7. FINAL CTA: A strong closing section with urgency, a headline, and a large CTA button.\n";
+        $prompt .= "5. PRODUCT DEMO: A dedicated section showing the product in action. Use a large image with a browser mockup frame or mobile frame (using Tailwind borders/styling) and a supporting paragraph of copy.\n";
+        $prompt .= "6. TESTIMONIALS: 2-3 testimonial cards with fake but realistic quotes, names, and roles. Use the DiceBear format for avatars.\n";
+        $prompt .= "7. PRICING: At least one pricing card with a clear price, feature list with checkmarks, and a CTA button. Highlight the recommended plan if multiple.\n";
+        $prompt .= "8. FINAL CTA: A strong closing section with urgency, a headline, and a large CTA button.\n";
         $prompt .= "8. FOOTER: Simple footer with copyright and a few links.\n";
 
         $prompt .= "\n=== DESIGN QUALITY RULES ===\n";
@@ -71,7 +72,7 @@ class AIGeneratorService
             ->timeout(300)
             ->withHeaders([
                 'Content-Type' => 'application/json',
-            ])->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' . $apiKey, [
+            ])->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' . $apiKey, [
                 'contents' => [
                     [
                         'parts' => [

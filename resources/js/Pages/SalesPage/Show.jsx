@@ -1,7 +1,24 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router, Link } from '@inertiajs/react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Dropdown from '@/Components/Dropdown';
+
+const LoadingStep = ({ label, delay }) => {
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        const timer = setTimeout(() => setVisible(true), delay);
+        return () => clearTimeout(timer);
+    }, [delay]);
+
+    return (
+        <div className={`flex items-center gap-3 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <div className={`w-5 h-5 rounded-full border-2 border-primary-500/30 flex items-center justify-center ${visible ? 'bg-primary-500/20' : ''}`}>
+                {visible && <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></div>}
+            </div>
+            <span className="text-gray-400 text-sm font-medium">{label}</span>
+        </div>
+    );
+};
 
 export default function Show({ salesPage, flash, auth }) {
     const [isGenerating, setIsGenerating] = useState(false);
@@ -212,15 +229,61 @@ export default function Show({ salesPage, flash, auth }) {
                                 {/* Regenerating Overlay */}
                                 {generatingSection && (
                                     <div className="absolute inset-0 z-30 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center pt-12">
-                                        <div className="bg-dark-surface border border-primary-500/50 p-6 rounded-2xl shadow-2xl flex flex-col items-center max-w-sm w-full mx-4">
-                                            <svg className="animate-spin h-10 w-10 text-primary-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                            </svg>
-                                            <h3 className="text-xl font-bold text-white mb-2 text-center">Rewriting {generatingSection}</h3>
-                                            <p className="text-gray-400 text-sm text-center">
-                                                Our AI is applying proven copywriting formulas to make this section convert better while keeping the rest of your page exactly the same.
+                                        <div className="bg-dark-surface border border-primary-500/50 p-8 rounded-3xl shadow-2xl flex flex-col items-center max-w-sm w-full mx-4 relative overflow-hidden group">
+                                            {/* Liquid Animation */}
+                                            <div className="w-20 h-20 rounded-full border-4 border-primary-500/30 mb-6 relative overflow-hidden bg-primary-500/10">
+                                                <div className="absolute bottom-0 left-0 right-0 bg-primary-500/40 animate-wave h-[60%]">
+                                                    <div className="absolute top-0 left-0 right-0 h-4 bg-primary-500/20 blur-sm -mt-2"></div>
+                                                </div>
+                                                <div className="absolute inset-0 flex items-center justify-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white animate-pulse" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+
+                                            <h3 className="text-xl font-bold text-white mb-2 text-center relative z-10">Rewriting {generatingSection}</h3>
+                                            <p className="text-gray-400 text-sm text-center relative z-10">
+                                                Applying conversion psychology to optimize this section...
                                             </p>
+                                            
+                                            {/* Decorative glow */}
+                                            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-primary-600/20 rounded-full blur-3xl group-hover:bg-primary-600/40 transition-colors"></div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Full Page Generation Overlay */}
+                                {isGenerating && !generatingSection && (
+                                    <div className="absolute inset-0 z-40 bg-[#0B0F19]/90 backdrop-blur-md flex flex-col items-center justify-center">
+                                        <div className="max-w-md w-full px-6 flex flex-col items-center">
+                                            <div className="relative w-32 h-32 mb-10">
+                                                {/* Outer rings */}
+                                                <div className="absolute inset-0 border-2 border-primary-500/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                                                <div className="absolute inset-2 border-2 border-purple-500/20 rounded-full animate-[spin_7s_linear_infinite_reverse]"></div>
+                                                
+                                                {/* Water ball */}
+                                                <div className="absolute inset-4 bg-dark-surface border-4 border-primary-500/50 rounded-full overflow-hidden shadow-[0_0_30px_rgba(99,102,241,0.3)]">
+                                                    <div className="absolute inset-0 bg-primary-600/20"></div>
+                                                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary-600 to-primary-400 h-[70%] animate-liquid">
+                                                        <div className="absolute top-[-10px] left-[-50%] w-[200%] h-10 bg-primary-300/30 rounded-[40%] animate-wave-slow"></div>
+                                                        <div className="absolute top-[-15px] left-[-50%] w-[200%] h-10 bg-primary-400/20 rounded-[35%] animate-wave-fast"></div>
+                                                    </div>
+                                                    <div className="absolute inset-0 flex items-center justify-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white animate-bounce" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <h2 className="text-3xl font-black text-white mb-4 text-center tracking-tight">Crafting Your Vision</h2>
+                                            <div className="flex flex-col gap-3 w-full">
+                                                <LoadingStep label="Analyzing product psychology..." delay={0} />
+                                                <LoadingStep label="Writing persuasive sales copy..." delay={2000} />
+                                                <LoadingStep label="Generating modern UI components..." delay={4000} />
+                                                <LoadingStep label="Polishing responsive design..." delay={6000} />
+                                            </div>
                                         </div>
                                     </div>
                                 )}

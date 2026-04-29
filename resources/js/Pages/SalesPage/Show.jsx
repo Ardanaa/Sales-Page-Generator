@@ -86,32 +86,29 @@ export default function Show({ salesPage, flash, auth }) {
                             <p className="text-sm text-primary-400">Live Preview</p>
                         </div>
                     </div>
-                    <div className="flex flex-wrap items-center gap-3">
+                    <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
                         {hasContent && (
                             <>
                                 <button
                                     onClick={downloadHTML}
-                                    className="inline-flex items-center gap-2 px-4 py-2 bg-dark-surface border border-dark-border rounded-lg font-semibold text-sm text-gray-300 hover:text-white hover:border-gray-500 transition-all shadow-sm"
+                                    className="inline-flex items-center justify-center gap-2 px-3 py-2.5 bg-dark-surface border border-dark-border rounded-xl font-semibold text-xs sm:text-sm text-gray-300 hover:text-white transition-all shadow-sm"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                         <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
                                     </svg>
-                                    Export HTML
+                                    Export
                                 </button>
                                 
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <button 
                                             disabled={isAnyGenerating}
-                                            className="inline-flex items-center gap-2 px-4 py-2 bg-dark-surface border border-primary-500/50 rounded-lg font-semibold text-sm text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all shadow-[0_0_10px_rgba(99,102,241,0.1)] disabled:opacity-50"
+                                            className="w-full inline-flex items-center justify-center gap-2 px-3 py-2.5 bg-dark-surface border border-primary-500/30 rounded-xl font-semibold text-xs sm:text-sm text-primary-400 hover:text-primary-300 transition-all disabled:opacity-50"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
                                             </svg>
-                                            Regenerate Section
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 opacity-70" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                                            </svg>
+                                            Sections
                                         </button>
                                     </Dropdown.Trigger>
                                     <Dropdown.Content contentClasses="bg-dark-surface border border-dark-border py-2 w-48">
@@ -127,30 +124,16 @@ export default function Show({ salesPage, flash, auth }) {
                                         ))}
                                     </Dropdown.Content>
                                 </Dropdown>
+
+                                <button
+                                    onClick={generateAI}
+                                    disabled={isAnyGenerating}
+                                    className="col-span-2 sm:col-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 border border-transparent rounded-xl font-bold text-xs sm:text-sm text-white hover:bg-primary-500 transition-all disabled:opacity-50 shadow-lg shadow-primary-600/20"
+                                >
+                                    {isGenerating ? 'Generating...' : 'Regenerate Entire Page'}
+                                </button>
                             </>
                         )}
-                        <button
-                            onClick={generateAI}
-                            disabled={isAnyGenerating}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 border border-transparent rounded-lg font-semibold text-sm text-white hover:bg-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-black transition-all disabled:opacity-50 shadow-[0_0_15px_rgba(99,102,241,0.3)]"
-                        >
-                            {isGenerating ? (
-                                <>
-                                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
-                                    Generating Magic...
-                                </>
-                            ) : (
-                                <>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-                                    </svg>
-                                    {hasContent ? 'Regenerate Entire Page' : 'Generate with AI'}
-                                </>
-                            )}
-                        </button>
                     </div>
                 </div>
             }
@@ -158,7 +141,7 @@ export default function Show({ salesPage, flash, auth }) {
             <Head title={`${salesPage.name} - Preview`} />
 
             <div className="py-8 h-[calc(100vh-140px)] min-h-[600px]">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 h-full flex flex-col">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-full flex flex-col">
                     {!hasContent ? (
                         <div className="flex-1 bg-dark-surface/80 backdrop-blur-xl border border-dark-border border-dashed rounded-2xl flex flex-col items-center justify-center text-center p-12">
                             <div className="w-20 h-20 bg-primary-600/10 rounded-full flex items-center justify-center mb-6 relative">
@@ -182,7 +165,7 @@ export default function Show({ salesPage, flash, auth }) {
                     ) : (
                         <div className="flex flex-col h-full items-center w-full">
                             {/* Device Toggle Toolbar */}
-                            <div className="mb-4 flex items-center bg-dark-surface border border-dark-border rounded-lg p-1">
+                            <div className="mb-4 hidden sm:flex items-center bg-dark-surface border border-dark-border rounded-lg p-1">
                                 <button 
                                     onClick={() => setPreviewMode('desktop')} 
                                     className={`px-4 py-2 rounded-md text-sm font-medium transition-all flex items-center gap-2 ${previewMode === 'desktop' ? 'bg-primary-600 text-white shadow-[0_0_10px_rgba(99,102,241,0.3)]' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
@@ -213,7 +196,7 @@ export default function Show({ salesPage, flash, auth }) {
                             </div>
 
                             {/* Live HTML Container */}
-                            <div className={`bg-white rounded-xl overflow-hidden border-4 border-dark-surface shadow-2xl relative transition-all duration-500 ease-in-out w-full flex-1 flex flex-col ${previewMode === 'desktop' ? 'max-w-full' : previewMode === 'tablet' ? 'max-w-3xl' : 'max-w-sm'}`}>
+                            <div className={`bg-white rounded-xl overflow-hidden border-4 border-dark-surface shadow-2xl relative transition-all duration-500 ease-in-out w-full flex-1 flex flex-col ${previewMode === 'desktop' ? 'max-w-full' : previewMode === 'tablet' ? 'max-w-3xl' : 'sm:max-w-sm'}`}>
                                 {/* Browser Header Mockup */}
                                 <div className="bg-gray-100 border-b border-gray-200 px-4 py-3 flex items-center gap-2 absolute top-0 left-0 right-0 z-20 h-12 shrink-0">
                                     <div className="flex gap-1.5 shrink-0">

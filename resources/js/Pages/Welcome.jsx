@@ -20,11 +20,11 @@ export default function Welcome({ auth }) {
                             </div>
                             <span className="text-2xl font-bold text-white tracking-tight">CopyGenius</span>
                         </div>
-                        <nav className="flex gap-4">
+                        <nav className="flex items-center gap-2 sm:gap-4">
                             {auth.user ? (
                                 <Link
                                     href={route('dashboard')}
-                                    className="text-gray-300 hover:text-white transition-colors font-medium px-4 py-2"
+                                    className="text-gray-300 hover:text-white transition-colors font-medium px-4 py-2 text-sm sm:text-base"
                                 >
                                     Dashboard
                                 </Link>
@@ -32,13 +32,13 @@ export default function Welcome({ auth }) {
                                 <>
                                     <Link
                                         href={route('login')}
-                                        className="text-gray-300 hover:text-white transition-colors font-medium px-4 py-2"
+                                        className="text-gray-300 hover:text-white transition-colors font-medium px-2 sm:px-4 py-2 text-sm sm:text-base whitespace-nowrap"
                                     >
                                         Log in
                                     </Link>
                                     <Link
                                         href={route('register')}
-                                        className="bg-white text-gray-900 hover:bg-gray-200 transition-colors font-medium px-5 py-2 rounded-full"
+                                        className="bg-white text-gray-900 hover:bg-gray-100 transition-all font-bold px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm whitespace-nowrap shadow-lg shadow-white/5 active:scale-95"
                                     >
                                         Get Started
                                     </Link>

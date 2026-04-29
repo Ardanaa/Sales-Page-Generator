@@ -95,8 +95,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                         </Dropdown.Trigger>
 
                         <Dropdown.Content align={isSidebarCollapsed ? "left" : "top"} width="48" contentClasses="bg-dark-surface border border-dark-border py-1">
-                            <Dropdown.Link href={route('profile.edit')} className="text-gray-300 hover:bg-dark-border hover:text-white">Profile</Dropdown.Link>
-                            <Dropdown.Link href={route('logout')} method="post" as="button" className="text-red-400 hover:bg-red-500/10 hover:text-red-300">
+                            <Dropdown.Link href={route('logout')} method="post" as="button" className="w-full text-left text-red-400 hover:bg-red-500/10 hover:text-red-300">
                                 Log Out
                             </Dropdown.Link>
                         </Dropdown.Content>
@@ -105,9 +104,9 @@ export default function AuthenticatedLayout({ user, header, children }) {
             </aside>
 
             {/* Mobile Header */}
-            <div className="lg:hidden fixed top-0 w-full bg-dark-surface/80 backdrop-blur-md border-b border-dark-border z-30 flex items-center justify-between px-4 h-16">
+            <div className="lg:hidden fixed top-0 w-full bg-[#0B0F19] border-b border-dark-border z-[60] flex items-center justify-between px-4 h-16">
                 <Link href="/" className="flex items-center gap-2">
-                    <div className="bg-primary-600 text-white p-1 rounded group-hover:bg-primary-500">
+                    <div className="bg-primary-600 text-white p-1.5 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
@@ -116,42 +115,66 @@ export default function AuthenticatedLayout({ user, header, children }) {
                 </Link>
                 <button
                     onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
-                    className="p-2 text-gray-400 hover:text-white focus:outline-none"
+                    className="p-2 text-gray-400 hover:text-white focus:outline-none bg-dark-border/50 rounded-lg transition-colors"
                 >
                     <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={showingNavigationDropdown ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                        {showingNavigationDropdown ? (
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                        ) : (
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                        )}
                     </svg>
                 </button>
             </div>
 
             {/* Mobile Menu */}
             {showingNavigationDropdown && (
-                <div className="lg:hidden fixed inset-0 z-20 bg-dark-surface pt-16">
-                    <div className="px-2 pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')} className="text-white">
+                <div className="lg:hidden fixed inset-0 z-[50] bg-[#0B0F19] pt-20 px-4 flex flex-col h-screen">
+                    <div className="space-y-2 mb-8">
+                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-4 mb-4">Main Menu</p>
+                        <Link 
+                            href={route('dashboard')} 
+                            className={`flex items-center gap-3 px-4 py-4 rounded-xl font-medium transition-all ${route().current('dashboard') ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/20' : 'text-gray-400 hover:bg-dark-border'}`}
+                            onClick={() => setShowingNavigationDropdown(false)}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
                             Dashboard
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('sales-pages.create')} active={route().current('sales-pages.create')} className="text-white">
+                        </Link>
+                        <Link 
+                            href={route('sales-pages.create')} 
+                            className={`flex items-center gap-3 px-4 py-4 rounded-xl font-medium transition-all ${route().current('sales-pages.create') ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/20' : 'text-gray-400 hover:bg-dark-border'}`}
+                            onClick={() => setShowingNavigationDropdown(false)}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                            </svg>
                             New Generator
-                        </ResponsiveNavLink>
+                        </Link>
                     </div>
-                    <div className="pt-4 pb-1 border-t border-dark-border">
-                        <div className="px-4">
-                            <div className="text-base font-medium text-white">{user.name}</div>
-                            <div className="text-sm font-medium text-gray-500">{user.email}</div>
+
+                    <div className="mt-auto pb-10 border-t border-dark-border pt-6">
+                        <div className="px-4 mb-6 flex items-center gap-3">
+                            <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-primary-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                                {user.name.charAt(0)}
+                            </div>
+                            <div>
+                                <div className="text-base font-bold text-white">{user.name}</div>
+                                <div className="text-sm text-gray-500">{user.email}</div>
+                            </div>
                         </div>
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')} className="text-white">Profile</ResponsiveNavLink>
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button" className="text-red-400">
+                        <div className="flex flex-col gap-3">
+                            <Link href={route('logout')} method="post" as="button" className="flex items-center justify-center py-4 rounded-xl bg-red-500/10 text-red-400 text-sm font-bold w-full transition-colors active:bg-red-500/20">
                                 Log Out
-                            </ResponsiveNavLink>
+                            </Link>
                         </div>
                     </div>
                 </div>
             )}
 
             {/* Main Content */}
-            <main className={`flex-1 relative min-h-screen pt-16 lg:pt-0 overflow-y-auto transition-all duration-300 ease-in-out ${isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'}`}>
+            <main className={`flex-1 relative min-h-screen pt-16 lg:pt-0 overflow-y-auto overflow-x-hidden transition-all duration-300 ease-in-out ${isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'}`}>
                 {/* Background effect */}
                 <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-primary-900/20 rounded-full blur-[120px] pointer-events-none"></div>
                 

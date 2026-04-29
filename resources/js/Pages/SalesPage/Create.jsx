@@ -40,7 +40,7 @@ export default function Create({ auth }) {
         >
             <Head title="Create Sales Page" />
 
-            <div className="py-8">
+            <div className="py-8 px-4 sm:px-0">
                 <div className="max-w-3xl mx-auto sm:px-6 lg:px-8">
                     
                     {/* Stepper */}

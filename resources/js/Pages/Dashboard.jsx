@@ -34,21 +34,21 @@ export default function Dashboard({ auth, salesPages }) {
         >
             <Head title="Dashboard" />
 
-            <div className="py-8">
+            <div className="py-8 px-4 sm:px-0">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     
                     {/* Welcome Card */}
                     <div className="bg-dark-surface/80 backdrop-blur-xl border border-dark-border overflow-hidden shadow-lg sm:rounded-2xl mb-8 relative">
                         <div className="absolute top-0 right-0 w-[40%] h-[100%] bg-gradient-to-l from-primary-600/10 to-transparent pointer-events-none"></div>
-                        <div className="p-8 text-gray-100 flex flex-col md:flex-row md:items-center justify-between relative z-10">
+                        <div className="p-8 text-gray-100 flex flex-col items-center text-center md:flex-row md:items-center md:text-left justify-between relative z-10">
                             <div>
                                 <h3 className="text-2xl font-bold mb-2">Welcome back, {auth.user.name}!</h3>
                                 <p className="text-gray-400">Ready to generate some high-converting sales copy?</p>
                             </div>
-                            <div className="mt-4 md:mt-0">
+                            <div className="mt-6 md:mt-0">
                                 <Link 
                                     href={route('sales-pages.create')} 
-                                    className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-white px-6 py-3 rounded-xl font-medium transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:scale-105"
+                                    className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-white px-6 py-3 rounded-xl font-medium transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:scale-105 active:scale-95"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />

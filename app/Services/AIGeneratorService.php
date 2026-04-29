@@ -16,7 +16,13 @@ class AIGeneratorService
             ? "Dark Modern: Rich dark backgrounds (#0B0F19, #111827), white/gray text, vibrant gradient accents (purple-to-indigo, cyan-to-blue). Use glassmorphism (bg-white/5 backdrop-blur-xl border border-white/10). Subtle glowing shadows on CTAs (shadow-[0_0_30px_rgba(99,102,241,0.4)]). Use bg-gradient-to-r for hero backgrounds."
             : "Clean Minimalist: Warm off-white backgrounds (#FAFAF9, #F5F5F4), rich dark text (#1C1917), a single vibrant accent color. Generous whitespace, editorial typography feel. Subtle shadows (shadow-sm). Apple/Linear-inspired aesthetic.";
 
-        $prompt = "You are a world-class frontend developer and direct-response copywriter. You build landing pages that look like they were designed by a top agency and convert like crazy.\n\n";
+        $prompt = "You are a world-class direct-response copywriter and expert frontend developer. Your mission is to build a high-converting sales page using proven psychological triggers.\n\n";
+        $prompt .= "=== COPYWRITING STRATEGY ===\n";
+        $prompt .= "1. Use the AIDA Framework (Attention, Interest, Desire, Action) to structure the overall page flow.\n";
+        $prompt .= "2. Use the PAS Framework (Problem, Agitation, Solution) specifically in the sections following the Hero to deeply connect with the audience's pain points before presenting the solution.\n";
+        $prompt .= "3. Write benefit-driven copy, not just features. Explain 'What's in it for them?'.\n";
+        $prompt .= "4. Use emotional power words, social proof triggers, and scarcity/urgency where appropriate.\n\n";
+
         $prompt .= "Generate a complete, standalone, PREMIUM HTML sales page for:\n\n";
         $prompt .= "Product: " . $salesPage->name . "\n";
         $prompt .= "Description: " . $salesPage->description . "\n";
@@ -43,25 +49,23 @@ class AIGeneratorService
         $prompt .= "5. Include a <script> at the bottom for the mobile hamburger menu toggle.\n";
 
         $prompt .= "\n=== PAGE STRUCTURE (all required) ===\n";
-        $prompt .= "1. NAVBAR: sticky top-0 z-50 with backdrop-blur. Nav links use anchor hrefs (#features, #pricing, etc). Must include a hamburger button (hidden on desktop, visible on mobile) that toggles a mobile menu div. The mobile menu must start hidden.\n";
-        $prompt .= "2. HERO: Large compelling headline (max 10 words), a subheadline (1-2 sentences), and a prominent CTA button. **Include a high-end visual element like a floating glassmorphism card or an abstract gradient mesh background.**\n";
-        $prompt .= "3. SOCIAL PROOF BAR: A row of logos or trust badges (e.g. '500+ companies trust us', '4.9/5 rating'). Use simple styled divs as logo placeholders.\n";
-        $prompt .= "4. FEATURES/BENEFITS: Use a grid (2 or 3 columns on desktop, 1 on mobile). Each card should have an icon (inline SVG), a bold title, and a short description. Use hover effects.\n";
-        $prompt .= "5. PRODUCT DEMO: A dedicated section showing the product in action. **Instead of a real image, use a 'Glassmorphism Dashboard Mockup' created with Tailwind divs, borders, and gradients to represent an interface.**\n";
-        $prompt .= "6. TESTIMONIALS: 2-3 testimonial cards with fake but realistic quotes, names, and roles. Use the DiceBear format for avatars.\n";
-        $prompt .= "7. PRICING: At least one pricing card with a clear price, feature list with checkmarks, and a CTA button. Highlight the recommended plan if multiple.\n";
-        $prompt .= "8. FINAL CTA: A strong closing section with urgency, a headline, and a large CTA button.\n";
-        $prompt .= "8. FOOTER: Simple footer with copyright and a few links.\n";
+        $prompt .= "1. NAVBAR: Sticky top-0 z-50 with glassmorphism. Nav links use anchor hrefs (#features, #pricing, etc).\n";
+        $prompt .= "2. HERO (Attention): Magnetic headline (max 10 words) that stops the scroll, a compelling subheadline, and a primary CTA. Use a high-end visual element.\n";
+        $prompt .= "3. THE PAIN (Problem & Agitation): A dedicated section using PAS. Describe the struggle the target audience faces without this product. Make them feel the problem before showing the cure.\n";
+        $prompt .= "4. THE SOLUTION: Introduce the product as the hero that solves the previously mentioned pain points.\n";
+        $prompt .= "5. SOCIAL PROOF BAR: Trust badges or 'Featured In' section.\n";
+        $prompt .= "6. FEATURES/BENEFITS (Interest & Desire): Use a grid. Convert every feature into a deep benefit. Use icons.\n";
+        $prompt .= "7. SOCIAL PROOF (Testimonials): 2-3 high-impact testimonials with avatars.\n";
+        $prompt .= "8. PRICING: Clear pricing card with a 'Risk-Free' guarantee mention.\n";
+        $prompt .= "9. FINAL CTA (Action): A high-urgency closing section with a clear directive to buy now.\n";
+        $prompt .= "10. FOOTER: Professional copyright and links.\n";
 
         $prompt .= "\n=== DESIGN QUALITY RULES ===\n";
-        $prompt .= "- DO NOT make it look like a generic Bootstrap template. Make it look like a Y Combinator startup landing page or a premium Framer template.\n";
-        $prompt .= "- Use a modern font stack: add <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap\" rel=\"stylesheet\"> and set font-family: 'Inter', sans-serif on the body.\n";
-        $prompt .= "- Use generous spacing (py-20, py-24, gap-8, gap-12). Sections should breathe.\n";
-        $prompt .= "- Use rounded-2xl or rounded-xl on cards. No sharp corners.\n";
-        $prompt .= "- CTAs should be large, bold, and have hover scale effects (hover:scale-105 transition-transform).\n";
-        $prompt .= "- Add subtle micro-animations: transition-all duration-300 on interactive elements.\n";
-        $prompt .= "- Write copy like a pro copywriter: benefit-driven, specific numbers, power words, urgency triggers.\n";
-        $prompt .= "- The page must be fully responsive (mobile-first). Test your layout mentally at 375px, 768px, and 1280px.\n";
+        $prompt .= "- DO NOT make it look like a generic Bootstrap template. Make it look like a Y Combinator startup landing page.\n";
+        $prompt .= "- Use a modern font stack: Inter or Outfit from Google Fonts.\n";
+        $prompt .= "- Use generous spacing (py-24). Sections should feel editorial and premium.\n";
+        $prompt .= "- Write copy like a $10k/month copywriter: punchy, clear, and persuasive.\n";
+        $prompt .= "- The page must be fully responsive (mobile-first).\n";
 
         $prompt .= "\n\nReturn the response strictly as a JSON object with the following structure:\n";
         $prompt .= "{\n";
